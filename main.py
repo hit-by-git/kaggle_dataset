@@ -91,6 +91,7 @@ def main():
         model=args.model, 
         tensor_parallel_size=2, 
         max_model_len=4096, 
+        gpu_memory_utilization=0.85, # Leaves 15% VRAM free to prevent Kaggle OOM crashes
         dtype="half",
         trust_remote_code=True,
         enforce_eager=True # Recommended for Gemma 2 on some vLLM versions to avoid CUDA graph issues

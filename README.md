@@ -17,19 +17,25 @@ This repository contains the code to run the V2 Thesis Plan experiments on Kaggl
 3. **Install Dependencies:**
    Create a code cell and run:
    ```bash
+   # Uninstall problematic pre-installed Kaggle packages
+   !pip uninstall -y torchaudio torchvision
+   # Upgrade transformers to avoid huggingface_hub conflicts
+   !pip install -U transformers
+   # Install requirements
    !pip install -r requirements.txt
-   !pip install -U "huggingface_hub[cli]"
    ```
 
 4. **Login to Hugging Face (in Notebook):**
    Create a code cell and run:
    ```python
    from kaggle_secrets import UserSecretsClient
+   from huggingface_hub import login
    import os
+   
    user_secrets = UserSecretsClient()
    hf_token = user_secrets.get_secret("HF_TOKEN")
    os.environ["HF_TOKEN"] = hf_token
-   !huggingface-cli login --token $HF_TOKEN
+   login(token=hf_token)
    ```
 
 5. **Upload your Dataset:**
