@@ -167,7 +167,7 @@ def main():
         tensor_parallel_size=2,
         max_model_len=4096,
         gpu_memory_utilization=0.85,
-        dtype="bfloat16",
+        dtype="half",
         trust_remote_code=True,
         enforce_eager=True,
     )
