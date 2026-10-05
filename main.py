@@ -106,12 +106,12 @@ def run_experiment(llm: LLM, df: pd.DataFrame, prompt_type: str,
     for _, row in df.iterrows():
         post = de_slang(row["post"]) if use_ablated_slang else row["post"]
         content = PROMPTS[prompt_type].format(article=row["article"], post=post)
-        # Gemma 2 instruction-tuned chat format
-        gemma_prompt = (
-            f"<start_of_turn>user\n{content}<end_of_turn>\n"
-            f"<start_of_turn>model\n"
+        # Llama 3 / 3.1 instruction-tuned chat format
+        llama_prompt = (
+            f"<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\n"
+            f"{content}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
         )
-        prompts.append(gemma_prompt)
+        prompts.append(llama_prompt)
 
     print(f"  Sending {len(prompts)} prompts (max_tokens={MAX_TOKENS[prompt_type]})...")
     t0 = time.time()
